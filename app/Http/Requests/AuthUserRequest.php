@@ -2,19 +2,18 @@
 
 namespace App\Http\Requests;
 
-use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Contracts\Validation\Validator;
-use Illuminate\Support\Facades\Auth;
+use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\ValidationException;
 
-class StoreUserRequest extends FormRequest
+class AuthUserRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
      */
     public function authorize(): bool
     {
-        return !Auth::check();
+        return true;
     }
 
     /**
@@ -25,7 +24,7 @@ class StoreUserRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'login' => 'required|string|max:255|unique:users,login',
+            'login' => 'required|string|max:255',
             'password' => 'required|string|max:255'
         ];
     }
@@ -36,10 +35,9 @@ class StoreUserRequest extends FormRequest
             'login.required' => 'Поле login обязательное для заполнения',
             'login.string' => 'Поле login должно быть строкового типа',
             'login.max' => 'Максимальное кол-во символов поля login 255',
-            'login.unique' => 'Такой login уже занят',
             'password.required' => 'Поле password обязательно для заполнения',
             'password.string' => 'Поле password должно быть строкого типа',
-            'password.max' => 'Максимальное кол-во символов поля password 255',
+            'password.max' => 'Максимальное кол-во символов поля password 255'
         ];
     }
 

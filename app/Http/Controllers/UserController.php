@@ -16,8 +16,7 @@ class UserController extends Controller
 
         return response()->json([
             'data' => [
-                'message' => 'Пользователь успешно создан',
-                'user' => $user
+                'message' => 'Регистрация прошла успешно'
             ]
         ], 201);
     }

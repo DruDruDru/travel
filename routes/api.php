@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AuthController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PlaceController;
 use App\Http\Controllers\UserController;
@@ -17,4 +18,11 @@ Route::group([
 ], function () {
     Route::get('', 'list');
     Route::post('', 'store');
+});
+
+Route::group([
+    'controller' => AuthController::class,
+    'middleware' => 'api'
+], function () {
+    Route::post('login', 'login');
 });
