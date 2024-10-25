@@ -7,7 +7,9 @@ use App\Http\Controllers\UserController;
 Route::post('signup', [UserController::class, 'storeUser']);
 
 Route::group([
-    'controller' => PlaceController::class
+    'controller' => PlaceController::class,
+    'prefix' => 'places'
 ], function () {
-    Route::get('places', 'list');
+    Route::get('', 'list');
+    Route::post('', 'store');
 });

@@ -33,7 +33,7 @@ class StoreUserRequest extends FormRequest
     {
         return [
             'login.required' => 'Поле login обязательное для заполнения',
-            'login.string' => 'Поле login должно быть строкого типа',
+            'login.string' => 'Поле login должно быть строкового типа',
             'login.max' => 'Максимальное кол-во символов поля login 255',
             'login.unique' => 'Такой login уже занят',
             'password.required' => 'Поле password обязательно для заполнения',
