@@ -13,4 +13,6 @@ class PlaceController extends Controller
             'data' => Place::all()
         ]);
     }
+
+    public function
 }
