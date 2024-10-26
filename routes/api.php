@@ -38,3 +38,12 @@ Route::group([
     Route::post('/users/favorites', 'store');
     Route::get('/users/favorites', 'getFavorites');
 });
+
+Route::any('{any}', function () {
+    return response()->json([
+        'error' => [
+            'status_code' => 404,
+            'message' => 'Ресурс не найден'
+        ]
+    ], 404);
+})->where('any', '.*');
