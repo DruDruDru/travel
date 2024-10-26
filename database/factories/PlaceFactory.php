@@ -17,7 +17,7 @@ class PlaceFactory extends Factory
     public function definition(): array
     {
         return [
-            'name' => fake()->country,
+            'name' => fake()->unique()->country,
             'longitude' => fake()->longitude(),
             'latitude' => fake()->latitude()
         ];

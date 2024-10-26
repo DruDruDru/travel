@@ -18,6 +18,9 @@
 - docker-compose up -d (Запускаем скачку изображений и развертываем контейнеры)
 - docker exec -it travel_app bash
 - Выполняем миграции php artisan migrate --seed
+- chmod 777 -R ./ (выдаем полный доступ что бы мы могли обращаться вне контейнера)
+- exit (выходим их контейнера)
+- php artisan jwt:secret
 
 ## Схема базы данных
 
