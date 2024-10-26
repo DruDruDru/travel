@@ -51,6 +51,11 @@ class User extends Authenticatable implements JWTSubject
         'password' => 'hashed',
     ];
 
+    public function getRole()
+    {
+        return $this->role ?? null;
+    }
+
     public function favorites()
     {
         return $this->belongsToMany(Place::class, 'favorites');

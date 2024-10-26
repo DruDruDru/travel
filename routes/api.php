@@ -20,7 +20,8 @@ Route::group([
     'prefix' => 'places'
 ], function () {
     Route::get('', 'list');
-    Route::post('', 'store');
+    Route::post('', 'store')
+        ->middleware('admin');
 });
 
 Route::group([
@@ -31,6 +32,7 @@ Route::group([
 });
 
 Route::group([
+    'middleware' => 'auth.api',
     'controller' => FavoriteController::class
 ], function () {
     Route::post('/users/{user_id}/favorites', 'store');
