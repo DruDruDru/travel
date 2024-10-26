@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreFavoriteRequest;
 use App\Models\User;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
@@ -56,8 +57,9 @@ class FavoriteController extends Controller
         ], 201);
     }
 
-    public function getFavorites(Request $request, $user_id)
+    public function getFavorites(Request $request)
     {
+        $user_id = Auth::id();
         $validated = Validator::make(['user_id' => $user_id], [
             'user_id' => 'uuid'
         ], [
@@ -83,7 +85,11 @@ class FavoriteController extends Controller
             ], 404);
         }
 
-        $favorites = $user->favorites()->get();
+        if (Auth::user()->getRole() === 'admin') {
+            $favorites = User::with('favorites')->get();
+        } else {
+            $favorites = $user->favorites()->get();
+        }
 
         return response()->json([
             'data' => $favorites
