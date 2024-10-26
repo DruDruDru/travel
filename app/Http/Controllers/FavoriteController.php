@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Http\Requests\StoreFavoriteRequest;
 use App\Models\User;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 
 class FavoriteController extends Controller
 {
@@ -52,6 +54,40 @@ class FavoriteController extends Controller
                     ->where('place_id', $place_id)->get()
             ]
         ], 201);
+    }
+
+    public function getFavorites(Request $request, $user_id)
+    {
+        $validated = Validator::make(['user_id' => $user_id], [
+            'user_id' => 'uuid'
+        ], [
+            'user_id.uuid' => 'Идентификатор пользователя должен быть корректным',
+        ]);
+
+        if ($validated->fails()) {
+            return response()->json([
+                'error' => [
+                    'status_code' => 422,
+                    'message' => 'Ошибка авторизации',
+                    'details' => $validated->errors()
+                ]
+            ], 422);
+        }
+
+        if (!$user = User::find($user_id)) {
+            return response()->json([
+                "error" => [
+                    "status_code" => 404,
+                    "message" => "Данного пользователя несуществует"
+                ]
+            ], 404);
+        }
+
+        $favorites = $user->favorites()->get();
+
+        return response()->json([
+            'data' => $favorites
+        ]);
     }
 }
 

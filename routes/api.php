@@ -34,4 +34,5 @@ Route::group([
     'controller' => FavoriteController::class
 ], function () {
     Route::post('/users/{user_id}/favorites', 'store');
+    Route::get('/users/{user_id}/favorites', 'getFavorites');
 });
