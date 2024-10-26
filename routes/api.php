@@ -8,11 +8,13 @@ use App\Http\Controllers\UserController;
 Route::group([
     'controller' => UserController::class
 ], function () {
+    Route::get('users', 'list')
+        ->middleware('auth.api');
     Route::post('signup', 'storeUser');
-    Route::get('users', 'list');
 });
 
 Route::group([
+    'middleware' => 'auth.api',
     'controller' => PlaceController::class,
     'prefix' => 'places'
 ], function () {
@@ -21,8 +23,8 @@ Route::group([
 });
 
 Route::group([
-    'controller' => AuthController::class,
-    'middleware' => 'api'
+    'middleware' => 'api',
 ], function () {
-    Route::post('login', 'login');
+    Route::post('login', [AuthController::class, 'login']);
+    Route::post('logout', [AuthController::class, 'logout']);
 });
