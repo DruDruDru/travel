@@ -35,6 +35,6 @@ Route::group([
     'middleware' => 'auth.api',
     'controller' => FavoriteController::class
 ], function () {
-    Route::post('/users/{user_id}/favorites', 'store');
+    Route::post('/users/favorites', 'store');
     Route::get('/users/favorites', 'getFavorites');
 });

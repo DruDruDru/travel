@@ -25,7 +25,6 @@ class StoreFavoriteRequest extends FormRequest
     {
         return [
             'place_id' => 'required|uuid|exists:places,id',
-            'user_id' => 'uuid'
         ];
     }
 
@@ -34,16 +33,8 @@ class StoreFavoriteRequest extends FormRequest
         return [
             'place_id.required' => '',
             'place_id.uuid' => 'Идентификатор места отдыха должен быть корректным',
-            'place_id.exists' => 'Данного места отдыха не существует',
-            'user_id.uuid' => 'Идентификатор пользователя должен быть корректным',
+            'place_id.exists' => 'Данного места отдыха не существует'
         ];
-    }
-
-    protected function prepareForValidation()
-    {
-        $this->merge([
-            'user_id' => $this->route('user_id')
-        ]);
     }
 
     protected function failedValidation(Validator $validator)

@@ -11,8 +11,10 @@ use Illuminate\Support\Facades\Validator;
 
 class FavoriteController extends Controller
 {
-    public function store(StoreFavoriteRequest $request, $user_id)
+    public function store(StoreFavoriteRequest $request)
     {
+        $user_id = Auth::id();
+
         if (!$user = User::find($user_id)) {
             return response()->json([
                 "error" => [
