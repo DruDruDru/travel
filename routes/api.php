@@ -4,6 +4,7 @@ use App\Http\Controllers\AuthController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PlaceController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\FavoriteController;
 
 Route::group([
     'controller' => UserController::class
@@ -27,4 +28,10 @@ Route::group([
 ], function () {
     Route::post('login', [AuthController::class, 'login']);
     Route::post('logout', [AuthController::class, 'logout']);
+});
+
+Route::group([
+    'controller' => FavoriteController::class
+], function () {
+    Route::post('/users/{user_id}/favorites', 'store');
 });

@@ -11,15 +11,14 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('place_user', function (Blueprint $table) {
-            $table->uuid('id')->primary();
+        Schema::create('favorites', function (Blueprint $table) {
+            $table->id();
             $table->uuid('place_id');
             $table->uuid('user_id');
             $table->foreign('place_id')->references('id')->on('places')
                 ->cascadeOnDelete();
             $table->foreign('user_id')->references('id')->on('users')
                 ->cascadeOnDelete();
-            $table->timestamps();
         });
     }
 
